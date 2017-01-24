@@ -1,3 +1,4 @@
 FROM progrium/busybox
 
 ADD . .
+CMD ./test.sh
