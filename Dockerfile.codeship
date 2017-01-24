@@ -1,6 +1,5 @@
 FROM docker:dind
 
 ADD . /test-root
-RUN docker build -t codeship-dind /test-root
 
 CMD ./test.sh
