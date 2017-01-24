@@ -1,2 +1,2 @@
 - service: codeship_dind
-  command: ./test.sh
+  command: /root/test.sh
