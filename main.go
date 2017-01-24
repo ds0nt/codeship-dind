@@ -26,13 +26,24 @@ func main() {
 	// id, kill := spinPostgres(5432)
 	// defer kill()
 
-	ok := waitPGConn()
+	pg, ok := waitPGConn()
 	if !ok {
 		log.Println("Did not connect")
 		return
 	}
-
+	defer pg.Close()
 	log.Println("Postgres Container Available")
+	cmd, err := pg.Exec(`CREATE TABLE COMPANY(
+		ID INT PRIMARY KEY     NOT NULL,
+		NAME           TEXT    NOT NULL,
+		AGE            INT     NOT NULL,
+		ADDRESS        CHAR(50),
+		SALARY         REAL
+		)`)
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("%d rows affected", cmd.RowsAffected())
 }
 
 // func printAnyWarnings(warnings []string) {
@@ -146,8 +157,8 @@ func main() {
 // 	return ipAddr, kFn
 // }
 
-func waitPGConn() (ok bool) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*15)
+func waitPGConn() (*pgx.Conn, bool) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*35)
 	defer cancel()
 	for {
 		pg, err := pgx.Connect(pgx.ConnConfig{
@@ -158,13 +169,12 @@ func waitPGConn() (ok bool) {
 			Password: os.Getenv("POSTGRES_PASSWORD"),
 		})
 		if err == nil {
-			pg.Close()
-			return true
+			return pg, true
 		}
 
 		select {
 		case <-ctx.Done():
-			return false
+			return nil, false
 		default:
 			log.Println("Still waiting for connection:", err)
 			time.Sleep(time.Second)
