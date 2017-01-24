@@ -1,4 +1,5 @@
-FROM progrium/busybox
+FROM golang
 
-ADD codeship-dind ./codeship-dind
+# ADD codeship-dind ./codeship-dind
+RUN make build
 CMD codeship-dind
