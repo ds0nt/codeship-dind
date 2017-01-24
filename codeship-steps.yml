@@ -1,2 +1,2 @@
-- service: adddocker
+- service: codeship_dind
   command: docker run busybox echo hello

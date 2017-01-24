@@ -1,10 +1,5 @@
-# adddocker:
-#   image: docker:dind
-
 codeship_dind:
   add_docker: true
   build:
     image: codeship_dind
     dockerfile_path: Dockerfile
-#   links:
-#     - "adddocker"
