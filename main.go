@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"time"
+	"log"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
@@ -11,13 +11,13 @@ import (
 )
 
 func main() {
-	for i := 0; i < 5; i++ {
-		DockerImages(i)
-		time.Sleep(1 * time.Second)
+	err := DockerImages()
+	if err != nil {
+		log.Println("Error:", err)
 	}
 }
 
-func DockerImages(num int) error {
+func DockerImages() error {
 	cli, err := client.NewEnvClient()
 	if err != nil {
 		return errors.Wrap(err, "Error creating NewEnvClient")
