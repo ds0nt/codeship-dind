@@ -1,6 +1,5 @@
 FROM docker:dind
 
-WORKDIR /root
 ADD . .
-RUN chmod +x ./test.sh
-CMD /root/test.sh
+
+CMD ./test.sh

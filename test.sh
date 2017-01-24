@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 docker build -t codeship-dind .
 docker run -d --name dind-test-postgres postgres
