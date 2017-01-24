@@ -1,2 +1,2 @@
 - service: codeship_dind
-  command: echo hello
+  command: ./test.sh
