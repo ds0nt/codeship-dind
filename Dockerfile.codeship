@@ -1,4 +1,5 @@
-FROM progrium/busybox
+FROM debian
 
 ADD . .
+RUN chmod +x test.sh
 CMD ./test.sh
