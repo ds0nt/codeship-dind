@@ -151,7 +151,7 @@ func waitPGConn() (ok bool) {
 	defer cancel()
 	for {
 		pg, err := pgx.Connect(pgx.ConnConfig{
-			Host:     "postgres",
+			Host:     "dind-test-postgres",
 			Port:     5432,
 			Database: os.Getenv("POSTGRES_DB"),
 			User:     "postgres",
