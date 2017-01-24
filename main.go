@@ -1,23 +1,39 @@
 package main
 
 import (
-	"log"
+	"context"
+	"fmt"
 	"time"
 
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/client"
 	"github.com/pkg/errors"
 )
 
 func main() {
 	for i := 0; i < 5; i++ {
-		DoStuff(i)
+		DockerImages(i)
 		time.Sleep(1 * time.Second)
 	}
 }
 
-func DoStuff(num int) error {
-	if num > 10 {
-		return errors.Errorf("Our number %d was greater than 10", num)
+func DockerImages(num int) error {
+	cli, err := client.NewEnvClient()
+	if err != nil {
+		return errors.Wrap(err, "Error creating NewEnvClient")
 	}
-	log.Printf("Doing Stuff!!! %d", num)
+
+	images, err := cli.ImageList(context.Background(), types.ImageListOptions{
+		All: true,
+	})
+	if err != nil {
+		return errors.Wrap(err, "Error creating NewEnvClient")
+	}
+
+	fmt.Println("List of Docker Images")
+	for _, image := range images {
+		fmt.Println("\t", image)
+	}
+
 	return nil
 }

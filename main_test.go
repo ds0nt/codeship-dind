@@ -5,12 +5,8 @@ import (
 	"testing"
 )
 
-func TestDoStuff(t *testing.T) {
-	err := DoStuff(1)
-	if err != nil {
-		panic("NOooooes!")
-	}
-	err = DoStuff(12)
+func TestDockerImages(t *testing.T) {
+	err := DockerImages(1)
 	if err != nil {
 		panic("NOooooes!")
 	}
