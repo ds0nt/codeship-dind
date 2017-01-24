@@ -1,2 +1,4 @@
+- service: gocode
+  command: echo gocode ready
 - service: codeship_dind
   command: /test-root/test.sh
