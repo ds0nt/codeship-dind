@@ -1,2 +1,2 @@
 - service: codeship_dind
-  command: ./codeship-dind
+  command: echo hello
