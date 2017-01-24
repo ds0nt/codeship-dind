@@ -1,3 +1,7 @@
+gocode:
+  build:
+    image: gocode
+    dockerfile_path: Dockerfile
 codeship_dind:
   add_docker: true
   build:
